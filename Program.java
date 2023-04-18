@@ -58,7 +58,7 @@ public class Program {
         if (i >= 1 && i <= 6) {
             System.out.println("Введите имя: ");
             String name = scan.nextLine();        
-            System.out.println("Введите дату рождения: ");
+            System.out.println("Введите дату рождения (dd.mm.yyyy): ");
             String date = scan.nextLine();
             scan.close();
             if (!date.matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.((19|20)[0-9][0-9])") || !isThisDateValid(date)) {
