@@ -1,4 +1,7 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,6 +61,10 @@ public class Program {
             System.out.println("Введите дату рождения: ");
             String date = scan.nextLine();
             scan.close();
+            if (!date.matches("(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.((19|20)[0-9][0-9])") || !isThisDateValid(date)) {
+                System.out.println("Дата введена неверно! Операция прервана, повторите заново.");
+                return null;
+            }
             if (i == 1) {
                 return new Dog(name, date);
             }
@@ -80,6 +87,27 @@ public class Program {
         scan.close();
         return null;
     }
+
+    public static boolean isThisDateValid(String dateToValidate) {
+    if (dateToValidate == null) {
+        return false;
+    }
+    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    sdf.setLenient(false);
+    try {
+        // if not valid, it will throw ParseException
+        Date date = sdf.parse(dateToValidate);
+        if(!date.before(new Date())){   // Проверка не более текущей даты
+            return false;
+        }
+        // System.out.println(date); // Sat Apr 30 00:00:00 MSK 2022
+    } catch (ParseException e) {
+        // e.printStackTrace();
+        return false;
+    }
+    return true;
+    }
+
 
     public static void learnAnimalSkill(ReestrAnimal reestr) {
         int i;
